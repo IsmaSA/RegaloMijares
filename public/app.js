@@ -172,7 +172,7 @@ function render() {
 
         <div class="btnrow">
           <button class="btn" type="button" data-vote="${escapeHtml(p.id)}">
-            ${isMine ? "Votada ✅ (tocar para cambiar)" : "Votar por esta"}
+            ${isMine ? "Votada ✅ (tocar para cambiar)" : "Votar"}
           </button>
           <button class="btn ghost" type="button" data-preview="${escapeHtml(p.id)}">Ver</button>
         </div>
