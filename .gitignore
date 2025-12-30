@@ -1,0 +1,5 @@
+node_modules/
+votes.db
+*.log
+.DS_Store
+.env
