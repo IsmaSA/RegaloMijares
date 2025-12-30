@@ -1,0 +1,26 @@
+[
+  {
+    "id": "foto-1",
+    "title": "Mijares 1",
+    "src": "/photos/Mijas1.jpeg",
+    "alt": "Foto 1"
+  },
+  {
+    "id": "foto-2",
+    "title": "Mijares 2",
+    "src": "/photos/Mijas2.jpeg",
+    "alt": "Foto 2"
+  },
+  {
+    "id": "foto-3",
+    "title": "Mijares 3",
+    "src": "/photos/Mijas3.jpeg",
+    "alt": "Foto 3"
+  },
+  {
+    "id": "foto-4",
+    "title": "Mijares 4",
+    "src": "/photos/Mijas4.jpeg",
+    "alt": "Foto 4"
+  }
+]

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vota tu foto preferida, pero solo 1 (aunque deberia estar capado)</title>
+  <meta name="description" content="Vota por tu foto favorita y mira resultados en tiempo real." />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="bg"></div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"></div>
+      <div>
+        <div class="title">Vota tu foto preferida, pero solo 1 (aunque deberia estar capado)</div>
+        <div class="subtitle">Please</div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button id="shareBtn" class="btn ghost" type="button">Compartir</button>
+      <button id="themeBtn" class="btn ghost" type="button" aria-label="Cambiar tema">🌙/☀️</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="left">
+      <div class="panel">
+        <div class="panel-head">
+          <div class="panel-title">Super fotos ya tu chabelita</div>
+          <div class="panel-controls">
+            <label class="field">
+              <span class="field-label">Orden</span>
+              <select id="sortSelect" class="select">
+                <option value="votesDesc">Más votadas</option>
+                <option value="votesAsc">Menos votadas</option>
+                <option value="titleAsc">Nombre (A-Z)</option>
+                <option value="titleDesc">Nombre (Z-A)</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div id="grid" class="grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <aside class="right">
+      <div class="panel sticky">
+        <div class="panel-head">
+          <div class="panel-title">Resultados</div>
+          <div class="pill">
+            <span class="dot" id="liveDot" aria-hidden="true"></span>
+            <span id="liveText">Conectando…</span>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label">Votos totales</div>
+            <div class="stat-value" id="totalVotes">—</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Tu voto</div>
+            <div class="stat-value" id="myVote">—</div>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="votesChart" height="240"></canvas>
+        </div>
+
+        <div class="legend" id="legend"></div>
+
+        <div class="actions">
+          <button id="changeVoteBtn" class="btn" type="button">Cambiar mi voto</button>
+          <button id="clearLocalBtn" class="btn ghost" type="button">Reiniciar mi dispositivo</button>
+        </div>
+
+        <div class="hint">
+          Isma mola y no tu cola
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-label="Vista previa de foto" hidden>
+    <div class="modal-backdrop" data-close="1"></div>
+    <div class="modal-card">
+      <button class="icon-btn" id="modalClose" type="button" aria-label="Cerrar">✕</button>
+      <img id="modalImg" alt="" />
+      <div class="modal-meta">
+        <div id="modalTitle" class="modal-title">—</div>
+        <div class="modal-sub" id="modalSub">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div id="toasts" class="toasts" aria-live="polite" aria-relevant="additions"></div>
+
+  <!-- Confetti canvas -->
+  <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+</body>
+</html>
