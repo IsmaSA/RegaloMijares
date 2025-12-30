@@ -206,3 +206,22 @@ app.listen(PORT, () => {
   console.log(`✅ Photo Vote listo en http://localhost:${PORT}`);
   console.log(`Tip: Si quieres admin, define ADMIN_KEY en tu entorno.`);
 });
+
+
+
+
+app.post("/api/admin/reset-votes", async (req, res) => {
+  const key = req.headers["x-admin-key"];
+  if (!process.env.ADMIN_KEY || key !== process.env.ADMIN_KEY) {
+    return res.status(401).json({ error: "No autorizado." });
+  }
+
+  try {
+    await dbRun("DELETE FROM votes");
+    // Notifica a todos los clientes en tiempo real
+    broadcastResults().catch(() => {});
+    return res.json({ ok: true });
+  } catch (e) {
+    return res.status(500).json({ error: "No se pudieron resetear los votos." });
+  }
+});

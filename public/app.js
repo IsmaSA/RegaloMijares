@@ -25,6 +25,8 @@ const toasts = $("#toasts");
 const confettiCanvas = $("#confetti");
 const ctxConfetti = confettiCanvas.getContext("2d");
 
+const resetVotesBtn = $("#resetVotesBtn");
+
 const LS = {
   voterToken: "pv_voter_token",
   myVote: "pv_my_vote",
@@ -411,6 +413,36 @@ shareBtn.addEventListener("click", async () => {
     toast("Copia manual", url);
   }
 });
+
+
+resetVotesBtn.addEventListener("click", async () => {
+  const key = prompt("Clave admin (ADMIN_KEY):");
+  if (!key) return;
+
+  const confirmText = prompt('Escribe RESET para confirmar que quieres borrar TODOS los votos:');
+  if (confirmText !== "RESET") {
+    toast("Cancelado", "No se han borrado los votos.");
+    return;
+  }
+
+  try {
+    const r = await fetch("/api/admin/reset-votes", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "x-admin-key": key
+      }
+    });
+
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data?.error || "Error reseteando votos");
+
+    toast("Votos reseteados", "Todos los votos han vuelto a 0.", "ok");
+  } catch (e) {
+    toast("No autorizado / error", String(e?.message || e), "bad");
+  }
+});
+
 
 themeBtn.addEventListener("click", () => {
   const cur = document.documentElement.dataset.theme || "dark";
